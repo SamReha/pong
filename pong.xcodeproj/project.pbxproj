@@ -13,6 +13,7 @@
 		E4F67B581B4A0FA7004E0606 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B571B4A0FA7004E0606 /* nice_music.ogg */; };
 		E4F67B5A1B4A0FA7004E0606 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B591B4A0FA7004E0606 /* sansation.ttf */; };
 		E4F67B5C1B4A0FA7004E0606 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B5B1B4A0FA7004E0606 /* icon.png */; };
+		E4F67B631B4A2811004E0606 /* paddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F67B621B4A2811004E0606 /* paddle.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		E4F67B571B4A0FA7004E0606 /* nice_music.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = nice_music.ogg; sourceTree = "<group>"; };
 		E4F67B591B4A0FA7004E0606 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		E4F67B5B1B4A0FA7004E0606 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		E4F67B621B4A2811004E0606 /* paddle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paddle.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				E4F67B4F1B4A0FA7004E0606 /* ResourcePath.mm */,
 				E4F67B511B4A0FA7004E0606 /* ResourcePath.hpp */,
 				E4F67B521B4A0FA7004E0606 /* main.cpp */,
+				E4F67B621B4A2811004E0606 /* paddle.cpp */,
 				E4F67B541B4A0FA7004E0606 /* Resources */,
 				E4F67B4D1B4A0FA7004E0606 /* Supporting Files */,
 			);
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4F67B531B4A0FA7004E0606 /* main.cpp in Sources */,
+				E4F67B631B4A2811004E0606 /* paddle.cpp in Sources */,
 				E4F67B501B4A0FA7004E0606 /* ResourcePath.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
