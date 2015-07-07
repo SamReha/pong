@@ -14,6 +14,7 @@
 		E4F67B5A1B4A0FA7004E0606 /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B591B4A0FA7004E0606 /* sansation.ttf */; };
 		E4F67B5C1B4A0FA7004E0606 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B5B1B4A0FA7004E0606 /* icon.png */; };
 		E4F67B631B4A2811004E0606 /* paddle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F67B621B4A2811004E0606 /* paddle.cpp */; };
+		E4F67B651B4B6E1B004E0606 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B641B4B6E1B004E0606 /* background.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,8 @@
 		E4F67B591B4A0FA7004E0606 /* sansation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sansation.ttf; sourceTree = "<group>"; };
 		E4F67B5B1B4A0FA7004E0606 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		E4F67B621B4A2811004E0606 /* paddle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = paddle.cpp; sourceTree = "<group>"; };
+		E4F67B641B4B6E1B004E0606 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		E4F67B661B4B738E004E0606 /* paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = paddle.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,7 @@
 				E4F67B4F1B4A0FA7004E0606 /* ResourcePath.mm */,
 				E4F67B511B4A0FA7004E0606 /* ResourcePath.hpp */,
 				E4F67B521B4A0FA7004E0606 /* main.cpp */,
+				E4F67B661B4B738E004E0606 /* paddle.h */,
 				E4F67B621B4A2811004E0606 /* paddle.cpp */,
 				E4F67B541B4A0FA7004E0606 /* Resources */,
 				E4F67B4D1B4A0FA7004E0606 /* Supporting Files */,
@@ -80,6 +84,7 @@
 		E4F67B541B4A0FA7004E0606 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E4F67B641B4B6E1B004E0606 /* background.png */,
 				E4F67B551B4A0FA7004E0606 /* cute_image.jpg */,
 				E4F67B571B4A0FA7004E0606 /* nice_music.ogg */,
 				E4F67B591B4A0FA7004E0606 /* sansation.ttf */,
@@ -146,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4F67B5C1B4A0FA7004E0606 /* icon.png in Resources */,
+				E4F67B651B4B6E1B004E0606 /* background.png in Resources */,
 				E4F67B5A1B4A0FA7004E0606 /* sansation.ttf in Resources */,
 				E4F67B581B4A0FA7004E0606 /* nice_music.ogg in Resources */,
 				E4F67B561B4A0FA7004E0606 /* cute_image.jpg in Resources */,

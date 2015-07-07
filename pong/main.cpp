@@ -20,6 +20,8 @@
 // Here is a small helper for you ! Have a look.
 #include "ResourcePath.hpp"
 
+#include "paddle.h"
+
 // Prototypes
 
 int main(int, char const**) {
@@ -33,9 +35,9 @@ int main(int, char const**) {
   }
   window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-  // Load a sprite to display
+  // Load sprites
   sf::Texture texture;
-  if (!texture.loadFromFile(resourcePath() + "cute_image.jpg")) {
+  if (!texture.loadFromFile(resourcePath() + "background.png")) {
     return EXIT_FAILURE;
   }
   sf::Sprite sprite(texture);
@@ -51,6 +53,10 @@ int main(int, char const**) {
   left_score.setColor(sf::Color::White);
   sf::Text right_score("0", font, 50);
   right_score.setColor(sf::Color::White);
+  
+  // Declare / Initialize the game objects
+  //Paddle left_paddle(10, 10, 10, 10, sprite); // Placeholder
+  //Paddle right_paddle(10, 10, 790, 10, sprite); // Placeholder
 
   // Load a music to play
   sf::Music music;
@@ -63,7 +69,7 @@ int main(int, char const**) {
 
   // Start the game loop
   while (window.isOpen()) {
-    /** Process events */
+    /** HANDLE EVENTS */
     sf::Event event;
     while (window.pollEvent(event)) {
       // Close window: exit
