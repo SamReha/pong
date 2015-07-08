@@ -3,38 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 
-/*class Paddle {
-  int width, height, xpos, ypos;
-  sf::Sprite sprite;
-public:
-  Paddle(int w, int h, int x, int y, sf::Sprite spr);
-  
-  void  move(int);                     // Int represents number of pixels to move the paddle by
-  void  setPosition(int, int);         // Set the paddle to a specific position (x, y)
-  float reflectionAngle(int);          // returns what angle the ball should be bounced back at, depending on the ball's y position
-  bool  checkCollision(int, int, int); // returns true if a ball of a certain position and radius is impacting this paddle
-};*/
-
 Paddle::Paddle(int w, int h, int x, int y, sf::Sprite spr) {
   width = w;
   height = h;
   xpos = x;
   ypos = y;
   sprite = spr;
-}
-
-void Paddle::move(int amount) {
-  ypos += amount;
-}
-
-void Paddle::setPosition(int newX, int newY) {
-  xpos = newX;
-  ypos = newY;
-}
-
-float Paddle::reflectionAngle(int ballY) {
-  int yDistance = ypos - ballY;
-  return (float(yDistance) / float(height)/2.0)*45;
+  sprite.setPosition(xpos-w/2, ypos-h/2);
 }
 
 int clamp(int val, int min, int max) {
@@ -44,6 +19,28 @@ int clamp(int val, int min, int max) {
     val = max;
   }
   return val;
+}
+
+void Paddle::move(int amount) {
+  ypos = clamp(ypos+amount, height/2, 600-(height/2));  // Magic numbers suck, but we can safely assume the screen will always be 600 tall.
+  
+  sprite.setPosition(xpos-(width/2), ypos-(height/2));
+}
+
+void Paddle::setPosition(int newX, int newY) {
+  xpos = newX;
+  ypos = newY;
+  
+  sprite.setPosition(xpos-(width/2), ypos-(height/2));
+}
+
+float Paddle::reflectionAngle(int ballY) {
+  int yDistance = ypos - ballY;
+  return (float(yDistance) / float(height)/2.0)*45;
+}
+
+sf::Sprite Paddle::getSprite() {
+  return sprite;
 }
 
 bool Paddle::checkCollision(int rad, int ballx, int bally) {

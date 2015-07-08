@@ -21,6 +21,7 @@
 #include "ResourcePath.hpp"
 
 #include "paddle.h"
+#include "ball.h"
 
 // Prototypes
 
@@ -41,22 +42,36 @@ int main(int, char const**) {
     return EXIT_FAILURE;
   }
   sf::Sprite sprite(texture);
+  
+  sf::Texture paddle_tex;
+  if (!paddle_tex.loadFromFile(resourcePath() + "paddle.png")) {
+    return EXIT_FAILURE;
+  }
+  sf::Sprite paddle_spr(paddle_tex);
+  
+  sf::Texture ball_tex;
+  if (!ball_tex.loadFromFile(resourcePath() + "ball.png")) {
+    return EXIT_FAILURE;
+  }
+  sf::Sprite ball_spr(ball_tex);
 
   // Load font and initialize textual elements
   sf::Font font;
   if (!font.loadFromFile(resourcePath() + "sansation.ttf")) {
     return EXIT_FAILURE;
   }
-  sf::Text text("Hello SFML", font, 50);
-  text.setColor(sf::Color::Black);
-  sf::Text left_score("0", font, 50);
-  left_score.setColor(sf::Color::White);
-  sf::Text right_score("0", font, 50);
-  right_score.setColor(sf::Color::White);
+  sf::Text left_score_text("0", font, 50);
+  left_score_text.setColor(sf::Color::White);
+  left_score_text.setPosition(150, 0);
+  
+  sf::Text right_score_text("0", font, 50);
+  right_score_text.setColor(sf::Color::White);
+  right_score_text.setPosition(600, 0);
   
   // Declare / Initialize the game objects
-  //Paddle left_paddle(10, 10, 10, 10, sprite); // Placeholder
-  //Paddle right_paddle(10, 10, 790, 10, sprite); // Placeholder
+  Paddle left_paddle(20, 100, 40, 300, paddle_spr);
+  Paddle right_paddle(20, 100, 760, 300, paddle_spr);
+  Ball ball(30, 30, 400, 300, ball_spr);
 
   // Load a music to play
   sf::Music music;
@@ -66,6 +81,11 @@ int main(int, char const**) {
 
   // Play the music
   music.play();
+  
+  // Game Variables
+  int left_score = 0;
+  int right_score = 0;
+  int player_speed = 2;
 
   // Start the game loop
   while (window.isOpen()) {
@@ -83,14 +103,25 @@ int main(int, char const**) {
       }
     }
     /** UPDATE ROUTINE */
+    left_score_text.setString(std::to_string(left_score));
+    right_score_text.setString(std::to_string(right_score));
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+      left_paddle.move(-player_speed);
+    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+      left_paddle.move(player_speed);
+    }
     
     /** DRAW ROUTINE */
     window.clear();
     
     window.draw(sprite);
-    window.draw(left_score);
+    window.draw(left_score_text);
+    window.draw(right_score_text);
+    window.draw(left_paddle.getSprite());
+    window.draw(right_paddle.getSprite());
+    window.draw(ball.getSprite());
 
-    // Update the window
     window.display();
   }
 

@@ -12,4 +12,5 @@ public:
   void  setPosition(int, int);         // Set the paddle to a specific position (x, y)
   float reflectionAngle(int);          // returns what angle the ball should be bounced back at, depending on the ball's y position
   bool  checkCollision(int, int, int); // returns true if a ball of a certain position and radius is impacting this paddle
+  sf::Sprite getSprite();              // Fetches the sprite obj associated with this paddle
 };
