@@ -3,14 +3,20 @@
 
 class Ball {
 private:
-  int width, height, xpos, ypos, xvel, yvel;
+  int width, height;
+  double xvel, yvel, xpos, ypos;
   sf::Sprite sprite;
 public:
-  Ball(int w, int h, int x, int y, sf::Sprite spr);
+  Ball(int w, int h, double x, double y, sf::Sprite spr);
   
-  void  move(int, int);         // Int represents number of pixels to move the paddle by
+  int getRadius();              // Returns radius of ball (width/2)
+  double getXPos();                // Returns val of xPos
+  double getYPos();                // Returns val of yPos
+  double getXVel();
+  double getYVel();
+  void  move(double, double);         // Int represents number of pixels to move the paddle by
   sf::Sprite getSprite();       // Fetches the sprite obj associated with this paddle
-  void computeVelocity(float);  // Based on reflection angle given by paddle, compute new velocity
+  void computeVelocity(double);  // Based on reflection angle given by paddle, compute new velocity
   void bounceOffCeiling();      // Compute new velocity when recoiling from ceiling or floor
   bool offLeft();               // Returns true iff ball is off the left-hand side of screen
   bool offRight();              // Returns true iff ball is off the right-hand side of screen

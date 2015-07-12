@@ -21,6 +21,15 @@ int clamp(int val, int min, int max) {
   return val;
 }
 
+double clampf(double val, double min, double max) {
+  if (val < min) {
+    val = min;
+  } else if (val > max) {
+    val = max;
+  }
+  return val;
+}
+
 void Paddle::move(int amount) {
   ypos = clamp(ypos+amount, height/2, 600-(height/2));  // Magic numbers suck, but we can safely assume the screen will always be 600 tall.
   
@@ -34,31 +43,30 @@ void Paddle::setPosition(int newX, int newY) {
   sprite.setPosition(xpos-(width/2), ypos-(height/2));
 }
 
-float Paddle::reflectionAngle(int ballY) {
+double Paddle::reflectionAngle(double ballY) {
   int yDistance = ypos - ballY;
-  return (float(yDistance) / float(height)/2.0)*45;
+  return clampf((2*double(yDistance) / double(height))*45, -45.0, 45.0);
 }
 
 sf::Sprite Paddle::getSprite() {
   return sprite;
 }
 
-bool Paddle::checkCollision(int rad, int ballx, int bally) {
-  bool isCollided = false;
-  int farRight = xpos + floor(width/2);
-  int farLeft = xpos - floor(width/2);
-  int top = ypos - floor(height/2);
-  int bottom = ypos + floor(height/2);
+bool Paddle::checkCollision(int rad, double ballx, double bally) {
+  double farRight = xpos + (double)width/2.0;
+  double farLeft = xpos - (double)width/2.0;
+  double top = ypos - (double)floor(height/2);
+  double bottom = ypos + (double)floor(height/2);
   
   // Find the closest point to the circle within the rectangle
-  float closestX = clamp(ballx, farLeft, farRight);
-  float closestY = clamp(bally, top, bottom);
+  double closestX = clampf(ballx, farLeft, farRight);
+  double closestY = clampf(bally, top, bottom);
   
   // Calculate the distance between the circle's center and this closest point
-  float distanceX = ballx - closestX;
-  float distanceY = bally - closestY;
+  double distanceX = ballx - closestX;
+  double distanceY = bally - closestY;
   
   // If the distance is less than the circle's radius, an intersection occurs
-  float distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+  double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
   return distanceSquared < (rad * rad);
 }

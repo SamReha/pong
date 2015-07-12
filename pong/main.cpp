@@ -68,10 +68,12 @@ int main(int, char const**) {
   right_score_text.setColor(sf::Color::White);
   right_score_text.setPosition(600, 0);
   
+  sf::Text end_text("ERROR", font, 50);
+  
   // Declare / Initialize the game objects
   Paddle left_paddle(20, 100, 40, 300, paddle_spr);
   Paddle right_paddle(20, 100, 760, 300, paddle_spr);
-  Ball ball(30, 30, 400, 300, ball_spr);
+  Ball ball(30, 30, 400.0, 300.0, ball_spr);
 
   // Load a music to play
   sf::Music music;
@@ -86,8 +88,15 @@ int main(int, char const**) {
   int left_score = 0;
   int right_score = 0;
   int player_speed = 2;
+  bool paused = false;
+  
+  // Let's hack a button together, maybe I'll make a class later (becuase who wants to do events?)
+  sf::Texture;
+  sf::Sprite;
+  sf::Rect<int>;
 
   // Start the game loop
+  ball.reset(true);
   while (window.isOpen()) {
     /** HANDLE EVENTS */
     sf::Event event;
@@ -103,13 +112,56 @@ int main(int, char const**) {
       }
     }
     /** UPDATE ROUTINE */
-    left_score_text.setString(std::to_string(left_score));
-    right_score_text.setString(std::to_string(right_score));
+    if (!paused) {
+      // Check to see if one player has won
+      if (left_score >= 10) {
+        paused = true;
+        end_text.setPosition(50, 250);
+        end_text.setString("LEFT PLAYER\n VICTORY");
+      } else if (right_score >= 10) {
+        paused = true;
+        end_text.setPosition(410, 250);
+        end_text.setString("RIGHT PLAYER\n VICTORY");
+      }
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-      left_paddle.move(-player_speed);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-      left_paddle.move(player_speed);
+      left_score_text.setString(std::to_string(left_score));
+      right_score_text.setString(std::to_string(right_score));
+    
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        left_paddle.move(-player_speed);
+      } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        left_paddle.move(player_speed);
+      }
+    
+      // Debug - Player 2! :D
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        right_paddle.move(-player_speed);
+      } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        right_paddle.move(player_speed);
+      }
+    
+      // Check if ball is colliding with paddles
+      if (left_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
+        ball.computeVelocity(left_paddle.reflectionAngle(ball.getYPos()));
+      } else if (right_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
+        ball.computeVelocity(right_paddle.reflectionAngle(ball.getYPos()));
+      }
+    
+      // Check if ball has gone offside
+      if (ball.offLeft()) {
+        ball.reset(false);
+        right_score += 1;
+      } else if (ball.offRight()) {
+        ball.reset(true);
+        left_score += 1;
+      }
+    
+      // Bounce the ball off the floor or ceiling
+      if (ball.getYPos() < 0.0 || ball.getYPos() > 600.0) {
+        ball.bounceOffCeiling();
+      }
+    
+      ball.update();
     }
     
     /** DRAW ROUTINE */
@@ -121,6 +173,10 @@ int main(int, char const**) {
     window.draw(left_paddle.getSprite());
     window.draw(right_paddle.getSprite());
     window.draw(ball.getSprite());
+    
+    if (paused) {
+      window.draw(end_text);
+    }
 
     window.display();
   }
