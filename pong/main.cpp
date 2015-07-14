@@ -75,14 +75,27 @@ int main(int, char const**) {
   Paddle right_paddle(20, 100, 760, 300, paddle_spr);
   Ball ball(30, 30, 400.0, 300.0, ball_spr);
 
-  // Load a music to play
-  sf::Music music;
-  if (!music.openFromFile(resourcePath() + "nice_music.ogg")) {
+  // Load sound effects
+  sf::SoundBuffer padd_contact_buffer;
+  if (!padd_contact_buffer.loadFromFile(resourcePath() + "259703__kwahmah-02__onebeep.flac")) {
     return EXIT_FAILURE;
   }
-
-  // Play the music
-  music.play();
+  sf::Sound padd_contact_sound;
+  padd_contact_sound.setBuffer(padd_contact_buffer);
+  
+  sf::SoundBuffer ceil_bounce_buffer;
+  if (!ceil_bounce_buffer.loadFromFile(resourcePath() + "16023_harri_perc-beep.wav")) {
+    return EXIT_FAILURE;
+  }
+  sf::Sound ceil_bounce_sound;
+  ceil_bounce_sound.setBuffer(ceil_bounce_buffer);
+  
+  sf::SoundBuffer ball_offsides_buffer;
+  if (!ball_offsides_buffer.loadFromFile(resourcePath() + "86101__scarkord__pss-bleep.wav")) {
+    return EXIT_FAILURE;
+  }
+  sf::Sound ball_offsides_sound;
+  ball_offsides_sound.setBuffer(ball_offsides_buffer);
   
   // Game Variables
   int left_score = 0;
@@ -147,8 +160,10 @@ int main(int, char const**) {
       // Check if ball is colliding with paddles
       if (left_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
         ball.computeVelocity(left_paddle.reflectionAngle(ball.getYPos()));
+        padd_contact_sound.play();
       } else if (right_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
         ball.computeVelocity(right_paddle.reflectionAngle(ball.getYPos()));
+        padd_contact_sound.play();
       }
     
       // Check if ball has gone offside
@@ -156,15 +171,18 @@ int main(int, char const**) {
         ball.reset(false);
         right_score += 1;
         right_score_text.setString(std::to_string(right_score));
+        ball_offsides_sound.play();
       } else if (ball.offRight()) {
         ball.reset(true);
         left_score += 1;
         left_score_text.setString(std::to_string(left_score));
+        ball_offsides_sound.play();
       }
     
       // Bounce the ball off the floor or ceiling
       if (ball.getYPos() < 0.0 || ball.getYPos() > 600.0) {
         ball.bounceOffCeiling();
+        ceil_bounce_sound.play();
       }
     
       ball.update();
