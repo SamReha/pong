@@ -109,8 +109,8 @@ int main(int, char const**) {
     return EXIT_FAILURE;
   }
   sf::Sprite reset_spr(reset_tex);
-  reset_spr.setPosition(250, 275);
-  sf::Rect<int> reset_rect(250, 275, 300, 150);
+  reset_spr.setPosition(250, 375);
+  sf::Rect<int> reset_rect(250, 375, 300, 150);
   
   sf::Mouse mouse;
   sf::Vector2<int> mousePosition;
