@@ -161,9 +161,11 @@ int main(int, char const**) {
       if (left_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
         ball.computeVelocity(left_paddle.reflectionAngle(ball.getYPos()));
         padd_contact_sound.play();
+        ball.bumpUpSpeed();
       } else if (right_paddle.checkCollision(ball.getRadius(), ball.getXPos(), ball.getYPos())) {
         ball.computeVelocity(right_paddle.reflectionAngle(ball.getYPos()));
         padd_contact_sound.play();
+        ball.bumpUpSpeed();
       }
     
       // Check if ball has gone offside
@@ -180,7 +182,7 @@ int main(int, char const**) {
       }
     
       // Bounce the ball off the floor or ceiling
-      if (ball.getYPos() < 0.0 || ball.getYPos() > 600.0) {
+      if (ball.getYPos() <= 0.0 || ball.getYPos() >= 600.0) {
         ball.bounceOffCeiling();
         ceil_bounce_sound.play();
       }

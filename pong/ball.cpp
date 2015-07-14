@@ -6,17 +6,19 @@
 #define PI 3.14159265
 
 Ball::Ball(int w, int h, double x, double y, sf::Sprite spr) {
+  xvel = 0.0;
+  yvel = 0.0;
+  speed_multiplier = 1;
+  
   width = w;
   height = h;
   xpos = x;
   ypos = y;
-  xvel = 0.0;
-  yvel = 0.0;
   sprite = spr;
   sprite.setPosition(xpos-w/2, ypos-h/2);
 }
 
-int _clamp(int val, int min, int max) {
+int _clamp(double val, double min, double max) {
   if (val < min) {
     val = min;
   } else if (val > max) {
@@ -45,6 +47,10 @@ double Ball::getYVel() {
   return yvel;
 }
 
+void Ball::bumpUpSpeed() {
+  speed_multiplier = speed_multiplier < 4.0 ? speed_multiplier + 0.2 : speed_multiplier;
+}
+
 void Ball::move(double newX, double newY) {
   xpos = newX;
   ypos = newY;
@@ -61,8 +67,8 @@ void Ball::computeVelocity(double reflectionAngle) {
   if (xvel > 0.0) {
     multiplier = -1.0;
   }
-  xvel = fabs(cosf(reflectionAngle*PI/180));
-  yvel = sinf(reflectionAngle*PI/180)*(-1);
+  xvel = fabs(cosf(reflectionAngle*PI/180)) * speed_multiplier;
+  yvel = sinf(reflectionAngle*PI/180)*(-1) * speed_multiplier;
   
   xvel = xvel*(multiplier);
 }
@@ -97,6 +103,8 @@ void Ball::reset(bool direction) {
   }
   xvel = fabs(cosf(reflectionAngle*PI/180));
   yvel = sinf(reflectionAngle*PI/180)*(-1);
+  
+  speed_multiplier = 1;
   
   xvel = xvel*(multiplier);
 }

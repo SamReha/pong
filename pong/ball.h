@@ -4,7 +4,7 @@
 class Ball {
 private:
   int width, height;
-  double xvel, yvel, xpos, ypos;
+  double xvel, yvel, xpos, ypos, speed_multiplier;
   sf::Sprite sprite;
 public:
   Ball(int w, int h, double x, double y, sf::Sprite spr);
@@ -14,6 +14,7 @@ public:
   double getYPos();                // Returns val of yPos
   double getXVel();
   double getYVel();
+  void bumpUpSpeed();           // Increment the speed multipler
   void  move(double, double);         // Int represents number of pixels to move the paddle by
   sf::Sprite getSprite();       // Fetches the sprite obj associated with this paddle
   void computeVelocity(double);  // Based on reflection angle given by paddle, compute new velocity
