@@ -10,6 +10,7 @@
 		E414FA871B4CB5AF00D7C5D8 /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = E414FA851B4CB5AF00D7C5D8 /* ball.png */; };
 		E414FA881B4CB5AF00D7C5D8 /* paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = E414FA861B4CB5AF00D7C5D8 /* paddle.png */; };
 		E414FA8B1B4CC5B600D7C5D8 /* ball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E414FA8A1B4CC5B600D7C5D8 /* ball.cpp */; };
+		E414FA8D1B5347BA00D7C5D8 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = E414FA8C1B5347BA00D7C5D8 /* reset.png */; };
 		E4F67B501B4A0FA7004E0606 /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = E4F67B4F1B4A0FA7004E0606 /* ResourcePath.mm */; };
 		E4F67B531B4A0FA7004E0606 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4F67B521B4A0FA7004E0606 /* main.cpp */; };
 		E4F67B581B4A0FA7004E0606 /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = E4F67B571B4A0FA7004E0606 /* nice_music.ogg */; };
@@ -24,6 +25,7 @@
 		E414FA861B4CB5AF00D7C5D8 /* paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paddle.png; sourceTree = "<group>"; };
 		E414FA891B4CC3F900D7C5D8 /* ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ball.h; sourceTree = "<group>"; };
 		E414FA8A1B4CC5B600D7C5D8 /* ball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ball.cpp; sourceTree = "<group>"; };
+		E414FA8C1B5347BA00D7C5D8 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		E4F67B4A1B4A0FA7004E0606 /* pong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4F67B4E1B4A0FA7004E0606 /* pong-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "pong-Info.plist"; sourceTree = "<group>"; };
 		E4F67B4F1B4A0FA7004E0606 /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		E4F67B541B4A0FA7004E0606 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E414FA8C1B5347BA00D7C5D8 /* reset.png */,
 				E4F67B641B4B6E1B004E0606 /* background.png */,
 				E414FA851B4CB5AF00D7C5D8 /* ball.png */,
 				E414FA861B4CB5AF00D7C5D8 /* paddle.png */,
@@ -158,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E414FA8D1B5347BA00D7C5D8 /* reset.png in Resources */,
 				E4F67B5C1B4A0FA7004E0606 /* icon.png in Resources */,
 				E4F67B651B4B6E1B004E0606 /* background.png in Resources */,
 				E414FA871B4CB5AF00D7C5D8 /* ball.png in Resources */,

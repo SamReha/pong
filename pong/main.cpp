@@ -91,9 +91,16 @@ int main(int, char const**) {
   bool paused = false;
   
   // Let's hack a button together, maybe I'll make a class later (becuase who wants to do events?)
-  sf::Texture;
-  sf::Sprite;
-  sf::Rect<int>;
+  sf::Texture reset_tex;
+  if (!reset_tex.loadFromFile(resourcePath() + "reset.png")) {
+    return EXIT_FAILURE;
+  }
+  sf::Sprite reset_spr(reset_tex);
+  reset_spr.setPosition(250, 275);
+  sf::Rect<int> reset_rect(250, 275, 300, 150);
+  
+  sf::Mouse mouse;
+  sf::Vector2<int> mousePosition;
 
   // Start the game loop
   ball.reset(true);
@@ -123,10 +130,7 @@ int main(int, char const**) {
         end_text.setPosition(410, 250);
         end_text.setString("RIGHT PLAYER\n VICTORY");
       }
-    
-      left_score_text.setString(std::to_string(left_score));
-      right_score_text.setString(std::to_string(right_score));
-    
+
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         left_paddle.move(-player_speed);
       } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -151,9 +155,11 @@ int main(int, char const**) {
       if (ball.offLeft()) {
         ball.reset(false);
         right_score += 1;
+        right_score_text.setString(std::to_string(right_score));
       } else if (ball.offRight()) {
         ball.reset(true);
         left_score += 1;
+        left_score_text.setString(std::to_string(left_score));
       }
     
       // Bounce the ball off the floor or ceiling
@@ -162,6 +168,21 @@ int main(int, char const**) {
       }
     
       ball.update();
+    } else {  // Else we are paused / gameovered
+      // Check for mouse presses in the reset button.
+      if (mouse.isButtonPressed(sf::Mouse::Button::Left)) {
+        mousePosition = mouse.getPosition(window);
+        if (reset_rect.contains(mousePosition.x, mousePosition.y)) {
+          left_score = 0;
+          right_score = 0;
+          
+          left_score_text.setString(std::to_string(left_score));
+          right_score_text.setString(std::to_string(right_score));
+          
+          paused = false;
+          ball.reset(true);
+        }
+      }
     }
     
     /** DRAW ROUTINE */
@@ -170,12 +191,14 @@ int main(int, char const**) {
     window.draw(sprite);
     window.draw(left_score_text);
     window.draw(right_score_text);
-    window.draw(left_paddle.getSprite());
-    window.draw(right_paddle.getSprite());
     window.draw(ball.getSprite());
     
     if (paused) {
       window.draw(end_text);
+      window.draw(reset_spr);
+    } else {
+      window.draw(left_paddle.getSprite());
+      window.draw(right_paddle.getSprite());
     }
 
     window.display();
